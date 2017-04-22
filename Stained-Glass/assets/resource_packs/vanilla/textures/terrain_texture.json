@@ -1702,6 +1702,9 @@
     "sea_lantern": {
       "textures": "textures/blocks/sea_lantern"
     },
+    "beacon": {
+      "textures": "textures/blocks/beacon"
+    },
     "beacon_core": {
       "textures": "textures/blocks/beacon"
     },
@@ -1753,7 +1756,22 @@
     },
     "shulker_box_top": {
       "textures": [
-        "textures/blocks/shulker_top_white"
+        "textures/blocks/shulker_top_white",
+        "textures/blocks/shulker_top_orange",
+        "textures/blocks/shulker_top_magenta",
+        "textures/blocks/shulker_top_light_blue",
+        "textures/blocks/shulker_top_yellow",
+        "textures/blocks/shulker_top_lime",
+        "textures/blocks/shulker_top_pink",
+        "textures/blocks/shulker_top_gray",
+        "textures/blocks/shulker_top_silver",
+        "textures/blocks/shulker_top_cyan",
+        "textures/blocks/shulker_top_purple",
+        "textures/blocks/shulker_top_blue",
+        "textures/blocks/shulker_top_brown",
+        "textures/blocks/shulker_top_green",
+        "textures/blocks/shulker_top_red",
+        "textures/blocks/shulker_top_black"
       ]
     },
     "concrete": {
