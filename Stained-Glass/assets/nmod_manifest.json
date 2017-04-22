@@ -1,0 +1,30 @@
+{
+   "native_libs" :
+   [
+     "libstained_glass.so"
+   ],
+   "name" : "Stained Glass",
+   "description" : "Do you prefer stained glass to normal glass?\nNMod Stained Glass adds hidden stained glass to the game!",
+   "author" : "ModelPart",
+   "version_info" :
+   {
+     "version_name" : "1.0",
+     "version_code" : 1,
+     "version_description_short" : "New Stained Glass!",
+     "version_description" : "New Stained Glass!",
+     "version_description_image" : "description_image.png"
+   },
+   "languages" :
+   [
+     {
+       "name" : "zh_CN",
+       "auto_split" : true,
+       "location" : "zh_CN.lang"
+     },
+     {
+       "name" : "en_US",
+       "auto_split" : true,
+       "location" : "en_US.lang"
+     }
+   ]
+}
