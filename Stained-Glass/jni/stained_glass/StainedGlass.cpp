@@ -1,3 +1,12 @@
+
+
+/*
+  IMPORTANT: PLEASE READ MANIFEST FILE!
+  assets/nmod_manifest.json
+*/
+
+
+
 #include <jni.h>
 //jni.h provides the implementation of JavaVM*,JNIEnv*,JNIEXPORT,jobject,jstring,jnit and JNI_VERSION_1_6.
 #include "Substrate.h"
