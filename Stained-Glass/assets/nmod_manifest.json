@@ -42,7 +42,7 @@
      "version_name" : "1.0",
      
      /*
-     Version name[int]
+     Version code[int]
      */
      "version_code" : 1,
      
@@ -73,7 +73,7 @@
    [
      {
        /*
-       Name means language name.For example,zh_CN,en_US,ru_RU,ect.
+       Name means language name.For example,zh_CN,en_US,ru_RU,etc.
        */
        "name" : "zh_CN",
        
