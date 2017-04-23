@@ -169,7 +169,7 @@ void initStainedGlassItems()
 	//To register a block,we should also define BlockItem.
 	
 	Item::mItems[ID_STAINED_GLASS] = new AuxDataBlockItem("stained_glass",
-	ID_STAINED_GLASS - 0x100, //0x100 , same as 526, must be cost in the conductor.
+	ID_STAINED_GLASS - 0x100, //0x100 , same as 256, must be cost in the conductor.
 	Block::mBlocks[ID_STAINED_GLASS] );
 	Item::mItems[ID_STAINED_GLASS] -> setCategory(CreativeItemCategory::DECORATIONS);
 	
