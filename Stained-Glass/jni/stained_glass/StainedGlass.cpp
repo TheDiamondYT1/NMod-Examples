@@ -124,8 +124,7 @@ void block_initBlocks()  //Replace method.
 	Block::mBlocks[ID_STAINED_GLASS] = Block::mStainedGlass = new StainedGlassBlock("stained_glass",ID_STAINED_GLASS);
 	
 	//add blocks to mBlockLookupMap so that the blocks can be found by game.
-	//Block::mBlockLookupMap.emplace("stained_glass",std::unique_ptr<Block>(Block::mBlocks[ID_STAINED_GLASS]));
-	//IMPORTANT: FOR UNKNOW REASON,IF WE ADD BLOCKS TO mBlockLookupMap,THE GAME WILL CRASH!
+	Block::mBlockLookupMap.emplace("stained_glass",Block::mBlocks[ID_STAINED_GLASS]);
 }
 
 //Invoked when the game is registering Block Graphics.
@@ -147,31 +146,19 @@ void blockGraphics_initBlocks(ResourcePackManager&m)
 	//Texture Data defined in : assets/resource_packs/vanilla/textures/terrain_textures.json
 }
 
-//to mark if the items were teardowned.
-bool itemTeardowned=true;
-//Invoked when the game is teardowning Items.
-static void (*teardownItems_)();
-static void teardownItems()
-{
-	teardownItems_();
-	
-	itemTeardowned=true;
-}
-
 // we define stained glass items here.
 void initStainedGlassItems()
 {
-	if(!itemTeardowned)
-		return;
-	itemTeardowned=false;
-
 	//register our own Block Items:
 	//To register a block,we should also define BlockItem.
 	
 	Item::mItems[ID_STAINED_GLASS] = new AuxDataBlockItem("stained_glass",
 	ID_STAINED_GLASS - 0x100, //0x100 , same as 256, must be cost in the conductor.
 	Block::mBlocks[ID_STAINED_GLASS] );
+	
 	Item::mItems[ID_STAINED_GLASS] -> setCategory(CreativeItemCategory::DECORATIONS);
+	
+	Item::mItemLookupMap.emplace("stained_glass",std::pair<std::string const,std::unique_ptr<Item>>("stained_glass",std::unique_ptr<Item>(Item::mItems[ID_STAINED_GLASS])));
 	
 	//We use AuxDataBlockItem to make sure the block is aux dataed.
 	//If the block we defined don't need to be aux dataed,we can use BlockItem instead.
@@ -191,10 +178,10 @@ void item_initCreativeItems()
 }
 
 //Inviked when the game is defining items.
-void (*item_initClientData_)();
-void item_initClientData()
+void (*item_registerItems_)();
+void item_registerItems()
 {
-	item_initClientData_();
+	item_registerItems_();
 	
 	initStainedGlassItems();
 }
@@ -364,6 +351,21 @@ extern "C"
 		//You can use MSHookFunction here or JNI_OnLoad.
 		//Warning:DO NOT use MSHookFunction in JNI_OnLoad and NMod_onLoad at the same time!
 		
+		MSHookFunction(
+		(void*)& Block::initBlocks, //Default Method in libminecraftpe.so,will be replaced by block_initBlocks
+		(void*)& block_initBlocks, //Replace Method that implements by us,will replace Block::initBlocks
+		(void**)& block_initBlocks_); //Pointer of default method which will be replaced.If we want to invoke Block::initBlocks,use block_initBlocks_ instead.
+		//Warning:You must use (void**)& instead of (void*)& to cast pointer methods!
+		//Warning:You must use (void*)& instead of (void**)& to cast methods!
+		
+		//Other MSHookFunction
+		MSHookFunction( (void*)&BlockGraphics::initBlocks, (void*)&blockGraphics_initBlocks, (void**)&blockGraphics_initBlocks_);
+		MSHookFunction( (void*)&Item::initCreativeItems, (void*)&item_initCreativeItems, (void**)&item_initCreativeItems_);
+		MSHookFunction( (void*)&Item::registerItems, (void*)&item_registerItems, (void**)&item_registerItems_);
+		MSHookFunction( (void*)&BeaconRenderer::render, (void*)&renderBeacon, (void**)&renderBeacon_);
+		MSHookFunction( (void*)&BeaconRenderer::renderAlpha, (void*)&renderBeaconAlpha, (void**)&renderBeaconAlpha_);
+		MSHookFunction( (void*)&BeaconRenderer::tessellateAlphaBeamSegment, (void*)&tessellateAlphaBeamSegment, (void**)&tessellateAlphaBeamSegment_);
+		MSHookFunction( (void*)&BeaconRenderer::tessellateOpaqueBeamSegment, (void*)&tessellateOpaqueBeamSegment, (void**)&tessellateOpaqueBeamSegment_);
 	}
 
 	void NMod_onActivityCreate(JNIEnv*env,jobject mainActivity,jobject savedInstanceState)
@@ -385,23 +387,6 @@ extern "C"
 	
 	JNIEXPORT jint JNI_OnLoad(JavaVM*,void*)
 	{
-		MSHookFunction(
-		(void*)& Block::initBlocks, //Default Method in libminecraftpe.so,will be replaced by block_initBlocks
-		(void*)& block_initBlocks, //Replace Method that implements by us,will replace Block::initBlocks
-		(void**)& block_initBlocks_); //Pointer of default method which will be replaced.If we want to invoke Block::initBlocks,use block_initBlocks_ instead.
-		//Warning:You must use (void**)& instead of (void*)& to cast pointer methods!
-		//Warning:You must use (void*)& instead of (void**)& to cast methods!
-		
-		//Other MSHookFunction
-		MSHookFunction( (void*)&Item::teardownItems, (void*)&teardownItems, (void**)&teardownItems_);
-		MSHookFunction( (void*)&BlockGraphics::initBlocks, (void*)&blockGraphics_initBlocks, (void**)&blockGraphics_initBlocks_);
-		MSHookFunction( (void*)&Item::initCreativeItems, (void*)&item_initCreativeItems, (void**)&item_initCreativeItems_);
-		MSHookFunction( (void*)&Item::initClientData, (void*)&item_initClientData, (void**)&item_initClientData_);
-		MSHookFunction( (void*)&BeaconRenderer::render, (void*)&renderBeacon, (void**)&renderBeacon_);
-		MSHookFunction( (void*)&BeaconRenderer::renderAlpha, (void*)&renderBeaconAlpha, (void**)&renderBeaconAlpha_);
-		MSHookFunction( (void*)&BeaconRenderer::tessellateAlphaBeamSegment, (void*)&tessellateAlphaBeamSegment, (void**)&tessellateAlphaBeamSegment_);
-		MSHookFunction( (void*)&BeaconRenderer::tessellateOpaqueBeamSegment, (void*)&tessellateOpaqueBeamSegment, (void**)&tessellateOpaqueBeamSegment_);
-		
 		return JNI_VERSION_1_6;
 	}
 }

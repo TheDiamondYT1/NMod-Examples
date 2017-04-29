@@ -96,5 +96,11 @@
        "format_space" : true,
        "location" : "en_US.lang"
      }
-   ]
+   ],
+   
+   /*
+   API for checking json syntax.
+   if it is true and there are some json syntax mistakes in assets files,NMod loader will report an error.
+   */
+   "check_json_syntax" : true
 }

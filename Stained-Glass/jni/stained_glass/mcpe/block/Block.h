@@ -44,7 +44,7 @@ public:
 	uint8_t blockId; // 4
 	char filler_Block[400];
 
-	static std::unordered_map<std::string,std::unique_ptr<Block>> mBlockLookupMap;
+	static std::unordered_map<std::string,Block const*> mBlockLookupMap;
 	static std::vector<std::unique_ptr<Block>> mOwnedBlocks;
 	static Block* mBlocks[BLOCK_ID_SIZE];
 	static bool mSolid[BLOCK_ID_SIZE];
@@ -458,5 +458,5 @@ public:
 	static Block * mIronDoor;
 public:
 	static float SIZE_OFFSET;
-	static std::string BLOCK_DESCRIPTION_PREFIX;
+	static const char* BLOCK_DESCRIPTION_PREFIX;
 };

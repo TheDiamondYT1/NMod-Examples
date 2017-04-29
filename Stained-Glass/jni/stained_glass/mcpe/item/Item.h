@@ -137,7 +137,7 @@ public:
 public:
 	static Item * mItems[ITEM_ID_SIZE];
 	static std::vector<ItemInstance> mCreativeList;
-	static std::unordered_map<std::string,std::unique_ptr<Item>> mItemLookupMap;
+	static std::unordered_map<std::string,std::pair<std::string const,std::unique_ptr<Item> > > mItemLookupMap;
 public:
 	static Item * mSword_wood;
 	static Item * mShovel_wood;
