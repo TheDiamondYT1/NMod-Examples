@@ -162,7 +162,6 @@ void initStainedGlassItems()
 	
 	//We use AuxDataBlockItem to make sure the block is aux dataed.
 	//If the block we defined don't need to be aux dataed,we can use BlockItem instead.
-	
 }
 
 //Invoked when the game is registering Creative Mode Inventory Items.
@@ -177,7 +176,7 @@ void item_initCreativeItems()
 		Item::addCreativeItem(ID_STAINED_GLASS,index);
 }
 
-//Inviked when the game is defining items.
+//Invoked when the game is defining items.
 void (*item_registerItems_)();
 void item_registerItems()
 {

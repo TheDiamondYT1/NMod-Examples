@@ -1,0 +1,106 @@
+/*
+  NMOD_MANIFEST.JSON is a file that ModdedPE will read it to load NMod.
+  If there is a NMOD_MANIFEST.JSON file in the assets of an application,the application will be regarded as a NMod.
+  
+  You don't need to implement all elements,you can just implement what you needed.
+*/
+
+{
+   /*
+   String elements in native_libs will be loaded by ModdedPE.
+   Make sure there is lib in the package or ModdedPE will report an error.
+   */
+   "native_libs" :
+   [
+     "libcustom_item.so"
+   ],
+   
+   /*
+   Name of NMod.
+   */
+   "name" : "Custom Item",
+   
+   /*
+   Descrpition of NMod.
+   Will be shown in description page.
+   */
+   "description" : "It's a demo NMod which defines some items.",
+   
+   /*
+   Please write your name or organization name in author:)
+   */
+   "author" : "ModelPart",
+   
+   /*
+   Version info
+   */
+   "version_info" :
+   {
+     /*
+     Version name.Will be shown in description page.
+     */
+     "version_name" : "1.0",
+     
+     /*
+     Version code[int]
+     */
+     "version_code" : 1,
+     
+     /*
+     New version description name short.Will be randomly shown in Main Page of ModdedPE as news.
+     */
+     "version_description_short" : "Supported 1.1.",
+     
+     /*
+     New version description.You can write down what is new in this version.
+     */
+     "version_description" : "Supported 1.1.",
+     
+     /*
+     Path of description image in assets.
+     The image will be shown in the Main Page of ModdedPE.
+     Warning: version_description_image and version_description_short should be implemented at the same time so that your NMod will be shown as news!
+     Warning: This image must be 1024 pixels in width and 500 pixels in height!
+     */
+     "version_description_image" : "description_image.jpg"
+   },
+   
+   /*
+   Language file auto-loader API provided by ModdedPE.
+   */
+   
+   "languages" :
+   [
+     {
+       /*
+       Name means language name.For example,zh_CN,en_US,ru_RU,etc.
+       */
+       "name" : "zh_CN",
+       
+       /*
+       format_space helps you to format the translation.
+       if it's value is true,the space ("\0") in the characters before "=" will be deleted.
+       For example,"tile. te st.n am e   =  My Test Block" will be formatted into "tile.test.name=  My Test Block" if the value of format_space is true.
+       */
+       "format_space" : true,
+       /*
+       Path of language file in assets.
+       */
+       "location" : "zh_CN.lang"
+     },
+     /*
+     You can add more language support...:
+     */
+     {
+       "name" : "en_US",
+       "format_space" : true,
+       "location" : "en_US.lang"
+     }
+   ],
+   
+   /*
+   API for checking json syntax.
+   if it is true and there are some json syntax mistakes in assets files,NMod loader will report an error.
+   */
+   "check_json_syntax" : true
+}
