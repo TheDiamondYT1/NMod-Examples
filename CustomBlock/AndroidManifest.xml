@@ -3,12 +3,8 @@
 	package="com.mcal.demo.CustomBlock"
         android:versionCode="4"
         android:versionName="0.3">
-	<uses-permission android:name="net.zhuoweizhang.mcpelauncher.ADDON"/>
-    <uses-sdk android:minSdkVersion="14" />
+	<uses-sdk android:minSdkVersion="14" />
+		
     <application  android:label="CustomBlock" android:hasCode="false">
-		<meta-data android:name="net.zhuoweizhang.mcpelauncher.api.nativelibname"
-			android:value="com.MCAL.demo.CustomBlock"/>
-		<meta-data android:name="net.zhuoweizhang.mcpelauncher.api.targetmcpeversion"
-			android:value="1.0.0.16"/>
 		</application>
 </manifest> 
